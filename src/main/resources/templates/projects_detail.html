@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+    <head>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Projects Detail</title>
+
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <script defer src="/js/bootstrap.bundle.min.js"></script>
+
+        <link rel="icon" type="image/x-icon" th:href="@{/images/favicon.png}" href="../static/pictures/favicon.png">
+
+        <!-- Baggrundsfarve & Logo Størrelse -->
+        <style>
+            body { background-color: #f8f9fa;}
+            .navbar-logo { width: 120px; margin-left: -5px;}
+        </style>
+
+    </head>
+
+
+    <body>
+
+    <!-------------------------NAVIGATION--------------------------->
+
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+            <a class="navbar-brand">
+                <img src="/images/logo.png" class="navbar-logo" alt="EleBite Logo">
+            </a>
+
+            <!-- Kollapset navigationsbar -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+
+                <!---- Venstre Navigationsbar ----->
+
+                <ul class="navbar-nav mr-auto">
+
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/dashboard}">Dashboard</a>
+                    </li>
+
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/projects}">Projects</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/teams_list}">Teams</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/resources}">Members</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/reports}">Reports</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/admin}">Administration</a>
+                    </li>
+
+                </ul>
+
+                <!---- Højre Navigationsbar ----->
+
+                <ul class="navbar-nav ml-auto">
+
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/profile}">Profile</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/logout}">Logout</a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </nav>
+
+    <!-------------------------Project List bar--------------------------->
+
+    <div class="container-fluid mt-4" style="width: 90%; margin-bottom: 5%;">
+
+    <div class="card">
+        <div class="card-header bg-white d-flex justify-content-between align-items-center" >
+            <h2 class="mb-0">Project Detail</h2>
+            <a th:href="@{/projects}" class="btn btn-primary btn-sm mr-2">Back to Projects</a>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <!-- Venstre kolonne for navn og beskrivelse -->
+                    <div class="col-md-6 border-right pr-4">
+                        <h3 class="mb-3">Basic Information</h3>
+                        <div class="form-group">
+                            <label><strong>Name</strong></label>
+                            <p th:text="${project.projectName}"></p>
+                        </div>
+
+                        <div class="form-group">
+                            <label><strong>Description</strong></label>
+                            <div><!-- style="height: 300px; overflow-y: scroll; border: 1px solid #d3d3d3; border-radius: 4px; padding: 10px;" -->
+                                <p th:text="${project.projectDescription != null ? project.projectDescription : 'Ikke opdateret endnu'}"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Højre kolonne for resterende information -->
+                    <div class="col-md-6 pl-4">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h3 class="mb-3">Project Timeline</h3>
+                                <div class="form-group">
+                                    <label><strong>Start</strong></label>
+                                    <p th:text="${project.projectStartDate != null ? #temporals.format(project.projectStartDate, 'dd-MM-yyyy') : 'Ikke opdateret endnu'}"></p>
+                                </div>
+
+                                <div class="form-group">
+                                    <label><strong>End</strong></label>
+                                    <p th:text="${project.projectEndDate != null ? #temporals.format(project.projectEndDate, 'dd-MM-yyyy') : 'Ikke opdateret endnu'}"></p>
+                                </div>
+
+                                <div class="form-group">
+                                    <label><strong>Created</strong></label>
+                                    <p th:text="${project.projectCreatedDateTime != null ? #temporals.format(project.projectCreatedDateTime, 'dd-MM-yyyy HH:mm') : 'Ikke opdateret endnu'}"></p>
+                                </div>
+
+                                <div class="form-group">
+                                    <label><strong>Updated</strong></label>
+                                    <p th:text="${project.projectUpdatedDateTime != null ? #temporals.format(project.projectUpdatedDateTime, 'dd-MM-yyyy HH:mm') : 'Ikke opdateret endnu'}"></p>
+                                </div>
+
+                                <div class="form-group">
+                                    <label><strong>By</strong></label>
+                                    <p>Martin Grosen</p>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6">
+                                <h3 class="mb-3">Other Information</h3>
+                                <div class="form-group">
+                                    <label><strong>Team</strong></label>
+                                    <p th:text="${project.projectTeamName != null ? project.projectTeamName : 'Ikke opdateret endnu'}"></p>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label><strong>Estimated Hours</strong></label>
+                                    <p th:text="${project.projectEstimatedHours != null ? project.projectEstimatedHours : 'Ikke opdateret endnu'}"></p>
+                                </div>
+
+                                <div class="form-group">
+                                    <label><strong>Status</strong></label>
+                                    <p th:text="${project.projectStatus != null ? project.projectStatus : 'Ikke opdateret endnu'}"></p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </body>
+
+</html>

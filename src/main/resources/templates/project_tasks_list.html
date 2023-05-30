@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Tasks List</title>
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <script defer src="/js/bootstrap.bundle.min.js"></script>
+
+  <link rel="icon" type="image/x-icon" th:href="@{/images/favicon.png}" href="../static/pictures/favicon.png">
+
+  <!-- Baggrundsfarve & Logo Størrelse -->
+  <style>
+    body { background-color: #f8f9fa;}
+    .navbar-logo { width: 120px; margin-left: -5px;}
+  </style>
+
+</head>
+
+
+<body>
+
+<!-------------------------NAVIGATION--------------------------->
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+  <a class="navbar-brand">
+    <img src="/images/logo.png" class="navbar-logo" alt="EleBite Logo">
+  </a>
+
+  <!-- Kollapset navigationsbar -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarNav">
+
+    <!---- Venstre Navigationsbar ----->
+
+    <ul class="navbar-nav mr-auto">
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/dashboard}">Dashboard</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/projects}">Projects</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/teams_list}">Teams</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/resources}">Members</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/reports}">Reports</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/admin}">Administration</a>
+      </li>
+
+    </ul>
+
+    <!---- Højre Navigationsbar ----->
+
+    <ul class="navbar-nav ml-auto">
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/profile}">Profile</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/logout}">Logout</a>
+      </li>
+
+    </ul>
+
+  </div>
+
+</nav>
+
+<!-------------------------Project List bar--------------------------->
+
+<div class="container mt-4 custom-container col-md-6 border" style="padding-top: 12px;
+        background-color: white; border-radius: 4px; padding-left: 20px; padding-right: 20px;">
+
+  <style>
+    .custom-container {max-width: 88%;}
+  </style>
+
+  <div class="row d-flex align-items-center">
+
+    <div class="col-2 text-left">
+      <h2>Tasks</h2>
+    </div>
+
+
+    <div class="col-8 d-flex justify-content-center">
+      <form th:action="@{/projects/search}" class="form-inline">
+        <input name="query" class="form-control mr-sm-2" type="search" placeholder="Name" aria-label="Search">
+        <button type="submit" class="btn btn-sm btn-outline-dark mr-sm-2">Submit</button>
+        <a th:href="@{/projects}" class="btn btn-sm btn-outline-dark">All</a>
+      </form>
+    </div>
+
+
+
+    <div class="col-2 text-right">
+      <a th:href="@{/tasks/{projectId}/new(projectId=${projectId})}" class="btn btn-sm btn-outline-primary mr-2">Create</a>
+    </div>
+
+
+    <!-----------------------------TABLE------------------------------->
+
+  </div>
+
+  <table class="table table-striped mt-3">
+
+    <thead>
+    <tr>
+      <th style="width:15%;">Name</th>
+      <th style="width:15%;">Team</th>
+      <!-- <th>Description</th> -->
+      <!-- <th>Photo</th> -->
+      <!-- <th>Start Date</th> -->
+      <!-- <th>End Date</th> -->
+      <!-- <th>Created</th> -->
+      <th style="width:15%;">Updated</th>
+      <th style="width:15%;">Signature</th>
+      <!-- <th>Budget</th> -->
+      <th style="width:22%;">Status</th>
+      <th style="width:23%;">Actions</th>
+
+    </tr>
+    </thead>
+
+    <tbody>
+
+    <tr th:each="task : ${tasks}">
+
+      <td th:text="${task.taskName}">Name</td>
+      <td th:text="${task.taskTeamID}">Team</td>
+      <!-- <td th:text="${project.projectDescription}">Description</td> -->
+      <!-- <td><img th:src="${project.projectPhotoUrl}" alt="Project Photo" width="50" height="50"></td> -->
+      <!-- <td th:text="${project.projectStartDate}">Start Date</td> -->
+      <!-- <td th:text="${project.projectEndDate}">End Date</td> -->
+      <!-- <td th:text="${project.projectCreatedDateTime}">Created</td> -->
+      <td th:text="${task.taskUpdatedDateTime != null ? #temporals.format(task.taskUpdatedDateTime, 'dd-MM-yyyy HH:mm') : 'Ikke opdateret endnu'}">Updated</td>
+      <td>Martin Grosen</td>
+      <!-- <td th:text="${project.projectBudget}">Budget</td> -->
+      <td th:text="${task.taskStatus}">Status</td>
+
+      <td style="text-align:left;">
+        <a th:href="@{/tasks/{taskId}(taskId=${task.taskID})}" class="btn btn-sm btn-outline-success mr-sm-2">Details</a>
+        <a th:href="@{/tasks/{taskId}/edit(taskId=${task.taskID})}" class="btn btn-sm btn-outline-warning mr-sm-2">Edit</a>
+
+      </td>
+
+    </tr>
+    </tbody>
+  </table>
+</div>
+</div>
+</div>
+</body>
+</html>

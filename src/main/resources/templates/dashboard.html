@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Project EleBite</title>
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <script defer src="/js/bootstrap.bundle.min.js"></script>
+
+  <link rel="icon" type="image/x-icon" th:href="@{/images/favicon.png}" href="../static/pictures/favicon.png">
+
+  <!-- Baggrundsfarve & Logo Størrelse -->
+  <style>
+    body { background-color: #f8f9fa;}
+    .navbar-logo { width: 120px; margin-left: -5px;}
+    #burndownChart { height: 50% !important; } /* Halverer højden af grafen */
+  </style>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+<!-------------------------NAVIGATION--------------------------->
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+  <a class="navbar-brand">
+    <img src="/images/logo.png" class="navbar-logo" alt="EleBite Logo">
+  </a>
+
+  <!-- Kollapset navigationsbar -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarNav">
+
+    <!---- Venstre Navigationsbar ----->
+
+    <ul class="navbar-nav mr-auto">
+
+      <li class="nav-item active">
+        <a class="nav-link" th:href="@{/dashboard}">Dashboard</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/projects}">Projects</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/teams_list}">Teams</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/resources}">Members</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/reports}">Reports</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/admin}">Administration</a>
+      </li>
+
+
+
+    </ul>
+
+    <!---- Højre Navigationsbar ----->
+
+    <ul class="navbar-nav ml-auto">
+
+      <li class="nav-item">
+        <a th:if="${param.success}" class="alert alert-success">You are registered successfully - Please fill out your Profile!</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/profile}">Profile</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/logout}">Logout</a>
+      </li>
+
+    </ul>
+
+  </div>
+
+</nav>
+
+<div class="container mt-4">
+  <!-- Project summary cards -->
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card text-white bg-primary mb-3">
+        <div class="card-header">Product Backlog</div> <!-- Total Projects -->
+        <div class="card-body">
+          <h4 class="card-title">25</h4>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card text-white bg-success mb-3">
+        <div class="card-header">Completed Tasks</div>
+        <div class="card-body">
+          <h4 class="card-title">6</h4>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card text-white bg-warning mb-3">
+        <div class="card-header">Tasks Left in Backlog</div>
+        <div class="card-body">
+          <h4 class="card-title">19</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Project progress chart -->
+  <div class="card mb-4">
+    <div class="card-header">Project Progress - EleBite</div>
+    <div class="card-body">
+      <canvas id="burndownChart" style="width: 100%; height: 50%;"></canvas>
+    </div>
+  </div>
+
+  <!-- Recent tasks table -->
+  <div class="card">
+    <div class="card-header">Task left in Backlog</div>
+    <div class="card-body">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Id</th>
+          <th>Story</th>
+          <th>Point</th>
+          <th>Priority</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Insert your recent tasks data here -->
+        <tr>
+          <td>US001</td>
+          <td>Definere projektvision</td>
+          <td>5</td>
+          <td>High</td>
+        </tr>
+        <tr>
+          <td>US003</td>
+          <td>Estimering</td>
+          <td>8</td>
+          <td>High</td>
+        </tr>
+        <tr>
+          <td>US002</td>
+          <td>Prioritering af krav</td>
+          <td>3</td>
+          <td>Medium</td>
+        </tr>
+        <tr>
+          <td>US004</td>
+          <td>Sprint Review</td>
+          <td>5</td>
+          <td>Medium</td>
+        </tr>
+        <tr>
+          <td>US005</td>
+          <td>Interaktion med interessenter</td>
+          <td>3</td>
+          <td>Medium</td>
+        </tr>
+        <tr>
+          <td>US006</td>
+          <td>Kontinuerlig forbedring</td>
+          <td>5</td>
+          <td>Medium</td>
+        </tr>
+        <tr>
+          <td>US008</td>
+          <td>Overvågning af projektets fremskridt</td>
+          <td>5</td>
+          <td>Medium</td>
+        </tr>
+        <tr>
+          <td>US009</td>
+          <td>Prioritering af krav</td>
+          <td>3</td>
+          <td>Medium</td>
+        </tr>
+        <tr>
+          <td>US011</td>
+          <td>Sprint Review</td>
+          <td>5</td>
+          <td>Medium</td>
+        </tr>
+        <tr>
+          <td>US012</td>
+          <td>Interaktion med interessenter</td>
+          <td>3</td>
+          <td>Medium</td>
+        </tr>
+        <tr>
+          <td>US014</td>
+          <td>Produktudgivelser</td>
+          <td>8</td>
+          <td>Medium</td>
+        </tr>
+        <tr>
+          <td>US015</td>
+          <td>Overvågning af projektets fremskridt</td>
+          <td>5</td>
+          <td>Medium</td>
+        </tr>
+        <tr>
+          <td>US017</td>
+          <td>Mulighed for at se og forstå prioriterede opgaver</td>
+          <td>3</td>
+          <td>Medium</td>
+        </tr>
+        <tr>
+          <td>US020</td>
+          <td>Mulighed for at kommentere og diskutere opgaver</td>
+          <td>5</td>
+          <td>Medium</td>
+        </tr>
+        <tr>
+          <td>US021</td>
+          <td>Mulighed for at tilknytte kodeændringer til specifikke opgaver</td>
+          <td>3</td>
+          <td>Medium</td>
+        </tr>
+        <tr>
+          <td>US013</td>
+          <td>Kontinuerlig forbedring</td>
+          <td>5</td>
+          <td>Low</td>
+        </tr>
+        <tr>
+          <td>US016</td>
+          <td>Adgang til detaljerede kravspecifikationer</td>
+          <td>2</td>
+          <td>Low</td>
+        </tr>
+        <tr>
+          <td>US018</td>
+          <td>Adgang til projektressourcer</td>
+          <td>2</td>
+          <td>Low</td>
+        </tr>
+        <tr>
+          <td>US022</td>
+          <td>Adgang til teknisk dokumentation og support</td>
+          <td>2</td>
+          <td>Low</td>
+        </tr>
+        <tr>
+          <td>US023</td>
+          <td>Mulighed for at estimere opgaver</td>
+          <td>3</td>
+          <td>Low</td>
+        </tr>
+        <tr>
+          <td>US024</td>
+          <td>Adgang til sprint backlog</td>
+          <td>2</td>
+          <td>Low</td>
+        </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- JavaScript -->
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var ctx = document.getElementById('burndownChart').getContext('2d');
+    var burndownChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['24th April', '1st May', '8th May', '15th May', '22nd May', '29th May', '31st May'],
+        datasets: [{
+          label: 'Ideal line',
+          data: [25, 21, 17, 13, 9, 5, 0],
+          fill: false,
+          borderColor: 'rgb(75, 192, 192)',
+          tension: 0.1
+        },
+          {
+            label: 'Real line',
+            data: [25, 25, 24, 23, 22, 19, 18],
+            fill: false,
+            borderColor: 'rgb(255, 99, 132)',
+            tension: 0.1
+          }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      },
+    });
+  });
+</script>
+
+</body>
+
+</html>
+
+

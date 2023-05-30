@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <script defer src="/js/bootstrap.bundle.min.js"></script>
+
+  <link rel="icon" type="image/x-icon" th:href="@{/images/favicon.png}" href="../static/pictures/favicon.png">
+
+  <!-- Baggrundsfarve & Logo Størrelse -->
+  <style>
+    body { background-color: #f8f9fa;}
+    .navbar-logo { width: 120px; margin-left: -5px;}
+  </style>
+
+</head>
+<body>
+<!-------------------------NAVIGATION--------------------------->
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+  <a class="navbar-brand">
+    <img src="/images/logo.png" class="navbar-logo" alt="EleBite Logo">
+  </a>
+
+  <!-- Kollapset navigationsbar -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarNav">
+
+    <!---- Venstre Navigationsbar ----->
+
+    <ul class="navbar-nav mr-auto">
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/dashboard}">Dashboard</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/projects}">Projects</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/teams_list}">Teams</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/resources}">Members</a>
+      </li>
+
+      <li class="nav-item active">
+        <a class="nav-link" th:href="@{/reports}">Reports</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/admin}">Administration</a>
+      </li>
+
+    </ul>
+
+    <!---- Højre Navigationsbar ----->
+
+    <ul class="navbar-nav ml-auto">
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/profile}">Profile</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/logout}">Logout</a>
+      </li>
+
+    </ul>
+
+  </div>
+
+</nav>
+<div class="container mt-4">
+  <h2>Reports</h2>
+  <p>Here you can view and generate various reports related to your projects, tasks, and resources.</p>
+  <div class="row">
+    <div class="col-md-4">
+      <h4>Project Reports</h4>
+      <ul>
+        <li><a href="project-summary-report.html">Project Summary</a></li>
+        <li><a href="project-status-report.html">Project Status</a></li>
+        <li><a href="project-timeline-report.html">Project Timeline</a></li>
+      </ul>
+    </div>
+    <div class="col-md-4">
+      <h4>Task Reports</h4>
+      <ul>
+        <li><a href="task-summary-report.html">Task Summary</a></li>
+        <li><a href="task-status-report.html">Task Status</a></li>
+        <li><a href="task-progress-report.html">Task Progress</a></li>
+      </ul>
+    </div>
+    <div class="col-md-4">
+      <h4>Resource Reports</h4>
+      <ul>
+        <li><a href="resource-summary-report.html">Resource Summary</a></li>
+        <li><a href="resource-availability-report.html">Resource Availability</a></li>
+        <li><a href="resource-utilization-report.html">Resource Utilization</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<script>
+  // Add your JavaScript code here to handle navigation or interaction on the reports page.
+  // For example, you can add event listeners to handle clicks on the report links
+  // and fetch the corresponding reports using AJAX.
+</script>
+
+</body>
+</html>

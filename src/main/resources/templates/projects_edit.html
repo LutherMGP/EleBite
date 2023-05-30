@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Edit</title>
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <script defer src="/js/bootstrap.bundle.min.js"></script>
+
+  <link rel="icon" type="image/x-icon" th:href="@{/images/favicon.png}" href="../static/pictures/favicon.png">
+
+  <!-- Baggrundsfarve & Logo Størrelse -->
+  <style>
+    body { background-color: #f8f9fa;}
+    .navbar-logo { width: 120px; margin-left: -5px;}
+    .header-buttons {
+      float: right;
+    }
+  </style>
+
+</head>
+
+
+<body>
+
+<!-------------------------NAVIGATION--------------------------->
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+  <a class="navbar-brand">
+    <img src="/images/logo.png" class="navbar-logo" alt="EleBite Logo">
+  </a>
+
+  <!-- Kollapset navigationsbar -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarNav">
+
+    <!---- Venstre Navigationsbar ----->
+
+    <ul class="navbar-nav mr-auto">
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/dashboard}">Dashboard</a>
+      </li>
+
+      <li class="nav-item active">
+        <a class="nav-link" th:href="@{/projects}">Projects</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/teams_list}">Teams</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/resources}">Members</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/reports}">Reports</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/admin}">Administration</a>
+      </li>
+
+    </ul>
+
+    <!---- Højre Navigationsbar ----->
+
+    <ul class="navbar-nav ml-auto">
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/profile}">Profile</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/logout}">Logout</a>
+      </li>
+
+    </ul>
+
+  </div>
+
+</nav>
+
+<!-------------------------Project List bar--------------------------->
+
+<div class="container-fluid mt-4" style="width: 90%; margin-bottom: 5%;">
+  <div class="card">
+    <div class="card-header bg-white d-flex align-items-center justify-content-between">
+      <h2 class="mb-0">Project Edit</h2>
+      <div class="header-buttons">
+        <button type="submit" form="projectForm" class="btn btn-primary btn-sm mr-2">Update</button>
+        <a th:href="@{/projects}" class="btn btn-secondary btn-sm mr-2">Return</a>
+        <a class="btn btn-danger btn-sm mr-2" th:href="@{/projects/{projectId}/delete(projectId=${project.projectID})}">Delete</a>
+      </div>
+    </div>
+    <div class="card-body">
+
+      <form id="projectForm" method="post" th:action="@{/projects/{projectId}/edit(projectId=${project.projectID})}" th:object="${project}">
+        <input type="hidden" th:field="*{projectID}">
+        <div class="row">
+
+          <!-- Venstre kolonne for navn og beskrivelse -->
+          <div class="col-md-6 border-right pr-4">
+            <h3 class="mb-3">Basic Information</h3>
+
+            <div class="form-group">
+              <label><strong>Name</strong></label>
+              <input
+                      type="text"
+                      class="form-control"
+                      id="projectName"
+                      th:field="*{projectName}"
+                      placeholder="Project Name"
+              />
+              <p th:if="${#fields.hasErrors('projectName')}" class="text-danger" th:errors="*{projectName}"></p>
+            </div>
+
+            <div class="form-group">
+              <label><strong>Description</strong></label>
+               <textarea class="form-control" style="height: 300px; overflow-y: auto;" th:field="*{projectDescription}"></textarea>
+            </div>
+          </div>
+
+          <!-- Højre kolonne for resterende information -->
+          <div class="col-md-6 pl-4">
+            <div class="row">
+
+              <div class="col-md-6">
+                <h3 class="mb-3">Project Timeline</h3>
+
+                <!--
+                <div class="form-group">
+                  <label><strong>Created</strong></label>
+                  <input
+                          type="datetime-local"
+                          class="form-control"
+                          value="${project.projectCreatedDateTime}"
+                          />
+                </div>
+                -->
+
+                <div class="form-group">
+                  <label><strong>Planned Start</strong></label>
+                  <input
+                          type="date"
+                          class="form-control"
+                          th:field="*{projectStartDate}"/>
+                </div>
+
+                <div class="form-group">
+                  <label><strong>Planned End</strong></label>
+                  <input
+                          type="date"
+                          class="form-control"
+                          th:field="*{projectEndDate}"/>
+                </div>
+
+                <!--
+                <div class="form-group">
+                  <label><strong>Last Update</strong></label>
+                  <input
+                          type="date-time"
+                          class="form-control"
+                          th:field="*{projectUpdatedDateTime}"
+                          readonly />
+                </div>
+
+
+                <div class="form-group">
+                  <label><strong>By</strong></label>
+                  <input class="form-control" value="Martin Grosen" readonly />
+                </div>
+                -->
+              </div>
+
+
+              <div class="col-md-6">
+                <h3 class="mb-3">Other Information</h3>
+
+                <div class="form-group">
+                  <label><strong>Team</strong></label>
+                  <input class="form-control" th:field="*{projectTeamName}"/>
+                </div>
+
+                <div class="form-group">
+                  <label><strong>Estimated Hours</strong></label>
+                  <input class="form-control" th:field="*{projectEstimatedHours}"/>
+                </div>
+
+                <div class="form-group">
+                  <label><strong>Status</strong></label>
+                  <input class="form-control" th:field="*{projectStatus}"/>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+</body>
+
+</html>

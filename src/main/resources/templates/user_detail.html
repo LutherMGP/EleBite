@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Detail</title>
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <script defer src="/js/bootstrap.bundle.min.js"></script>
+
+  <link rel="icon" type="image/x-icon" th:href="@{/images/favicon.png}" href="../static/pictures/favicon.png">
+
+  <!-- Baggrundsfarve & Logo Størrelse -->
+  <style>
+    body { background-color: #f8f9fa;}
+    .navbar-logo { width: 120px; margin-left: -5px;}
+  </style>
+
+</head>
+<body>
+
+<!-------------------------NAVIGATION--------------------------->
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+  <a class="navbar-brand">
+    <img src="/images/logo.png" class="navbar-logo" alt="EleBite Logo">
+  </a>
+
+  <!-- Kollapset navigationsbar -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarNav">
+
+    <!---- Venstre Navigationsbar ----->
+
+    <ul class="navbar-nav mr-auto">
+
+      <li class="nav-item active">
+        <a class="nav-link" th:href="@{/dashboard}">Dashboard</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/projects}">Projects</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/tasks}">Tasks</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/resources}">Members</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/reports}">Reports</a>
+      </li>
+
+
+    </ul>
+
+    <!---- Højre Navigationsbar ----->
+
+    <ul class="navbar-nav ml-auto">
+
+      <li class="nav-item">
+        <a th:if="${param.success}" class="alert alert-success">You are registered successfully - Please fill out your Profile!</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/profile}">Profile</a>
+      </li>
+
+      <!--
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/login}">Login</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/register}">Register</a>
+      </li>
+      -->
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/logout}">Logout</a>
+      </li>
+
+    </ul>
+
+  </div>
+
+</nav>
+
+<!-------------------------CONTENT--------------------------->
+
+<div class="container-fluid mt-4" style="width: 90%; margin-bottom: 5%;">
+  <div class="card">
+
+    <div class="card-header bg-white d-flex align-items-center justify-content-between">
+
+      <h2 class="mb-0">Member</h2>
+
+      <div class="col-8 d-flex justify-content-center">
+
+        <form th:action="@{/projects/search}" class="form-inline">
+          <input name="query" class="form-control mr-sm-2" type="search" placeholder="Username" aria-label="Search">
+          <input name="query" class="form-control mr-sm-2" type="search" placeholder="Email" aria-label="Search">
+          <input name="query" class="form-control mr-sm-2" type="search" placeholder="Password" aria-label="Search">
+        </form>
+
+      </div>
+
+      <div class="header-buttons d-flex">
+        <button type="submit" form="projectForm" class="btn btn-outline-primary btn-sm mr-2">Update</button>
+        <a class="btn btn-outline-secondary btn-sm mr-2">Return</a>
+        <form id="deleteTaskForm" method="get" class="d-flex">
+          <input type="hidden" name="projectId"  />
+          <button type="submit" class="btn btn-outline-danger btn-sm mr-2">Delete</button>
+        </form>
+      </div>
+
+    </div>
+
+    <div class="card-body">
+
+      <form id="projectForm" method="post" >
+        <input type="hidden" >
+        <div class="row">
+
+          <!-- Venstre kolonne for navn og beskrivelse -->
+          <div class="col-md-4 border-right pr-4">
+            <h3 class="mb-3">Basic Information</h3>
+
+            <div class="form-group">
+              <label><strong>Full Name</strong></label>
+              <input
+                      type="text"
+                      class="form-control"
+                      id="memberName"
+
+                      placeholder="John Doe"
+              />
+              <p></p>
+            </div>
+
+            <div class="form-group">
+              <label><strong>Contact number</strong></label>
+              <input
+                      type="text"
+                      class="form-control"
+                      id="memberPhone"
+
+                      placeholder="+45 12345678"
+              />
+              <p></p>
+            </div>
+
+            <div class="form-group">
+              <label><strong>Position</strong></label>
+              <input
+                      type="text"
+                      class="form-control"
+                      id="memberPosition"
+
+                      placeholder="Software Developer (DK/01)"
+              />
+              <p></p>
+            </div>
+
+            <div class="form-group">
+              <label><strong>Affiliation Type</strong></label>
+              <select class="form-control" id="memberAffiliation">
+                <option value="CoreTeamMember">Core Team Member</option>
+                <option value="SpecialContributor">Special Contributor</option>
+                <option value="ExternalConsultant">External Consultant</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label><strong>Other</strong></label>
+              <textarea class="form-control" style="height:50px; overflow-y: auto;" ></textarea>
+            </div>
+
+          </div>
+
+          <!-- Højre kolonne for resterende information -->
+          <div class="col-md-8 pl-4">
+            <div class="row">
+
+              <div class="col-md-6">
+                <h3 class="mb-3">Proficiency</h3>
+
+                <div class="form-group">
+                  <label><strong>Educational Background</strong></label>
+                  <div class="row">
+                    <div class="col-md-9">
+      <textarea class="form-control" style="height:100px; overflow-y: auto;" placeholder="Please list your educational qualifications, specifying the degree, field, and institution. From 1 to 5, how would you rate the relevance of your education to your work in IT development and SCRUM roles?
+(Choose a number between 1 and 5: 1 - Not Relevant, 5 - Highly Relevant)"></textarea>
+                    </div>
+                    <div class="col-md-3">
+                      <select class="form-control" id="memberEducationRating">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="form-group">
+                  <label><strong>Work Experience</strong></label>
+                  <div class="row">
+                    <div class="col-md-9">
+                      <textarea class="form-control" style="height:100px; overflow-y: auto;" placeholder="Please provide details about your previous jobs, projects, and companies you've worked for. From 1 to 5, how would you rate your previous work experience's relevance to your current role in IT development and SCRUM roles? (Choose a number between 1 and 5: 1 - Not Relevant, 5 - Highly Relevant)"></textarea>
+                    </div>
+                    <div class="col-md-3">
+                      <select class="form-control" id="memberWorkExperienceRating">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="form-group">
+                  <label><strong>Technical Skills</strong></label>
+                  <div class="row">
+                    <div class="col-md-9">
+      <textarea class="form-control" style="height:100px; overflow-y: auto;" placeholder="Please list the programming languages, software development tools, frameworks, and technologies you're proficient in. From 1 to 5, how would you rate your technical skills in relation to your IT development and SCRUM roles?
+        (Choose a number between 1 and 5: 1 - Basic Skills, 5 - Advanced Skills)"></textarea>
+                    </div>
+                    <div class="col-md-3">
+                      <select class="form-control" id="memberTechnicalSkillRating">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+
+              </div>
+
+              <div class="col-md-6">
+                <h3 class="mb-3">Competencies</h3>
+
+                <div class="form-group">
+                  <label><strong>Scrum/Agile Experience</strong></label>
+                  <div class="row">
+                    <div class="col-md-9">
+                      <textarea class="form-control" style="height:100px; overflow-y: auto;" placeholder="Please detail any experience you have with Scrum or other agile methodologies. From 1 to 5, how would you rate your experience and proficiency in Scrum/Agile methodologies?"></textarea>
+                    </div>
+                    <div class="col-md-3">
+                      <select class="form-control" id="memberScrumRating">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label><strong>Soft Skills</strong></label>
+                  <div class="row">
+                    <div class="col-md-9">
+                      <textarea class="form-control" style="height:100px; overflow-y: auto;" placeholder="Please list your key soft skills such as communication, teamwork, leadership, problem-solving, etc. From 1 to 5, how would you rate your soft skills in relation to working in a team and in a SCRUM environment? (Choose a number between 1 and 5: 1 - Needs Improvement, 5 - Excellent)"></textarea>
+                    </div>
+                    <div class="col-md-3">
+                      <select class="form-control" id="memberSoftSkillRating">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="form-group">
+                  <label><strong>Areas of Interest</strong></label>
+                  <div class="row">
+                    <div class="col-md-9">
+                      <textarea class="form-control" style="height:100px; overflow-y: auto;" placeholder="What areas of IT or software development are you particularly interested in? From 1 to 5, how would you rate your passion and motivation for your areas of interest? (Choose a number between 1 and 5: 1 - Low Interest, 5 - High Interest)"></textarea>
+                    </div>
+                    <div class="col-md-3">
+                      <select class="form-control" id="memberAreasOfInterestRating">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+</body>
+
+</html>

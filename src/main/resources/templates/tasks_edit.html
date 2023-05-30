@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Edit</title>
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <script defer src="/js/bootstrap.bundle.min.js"></script>
+
+    <link rel="icon" type="image/x-icon" th:href="@{/images/favicon.png}" href="../static/pictures/favicon.png">
+
+    <!-- Baggrundsfarve & Logo Størrelse -->
+    <style>
+        body { background-color: #f8f9fa;}
+        .navbar-logo { width: 120px; margin-left: -5px;}
+        .header-buttons {
+            float: right;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<!-------------------------NAVIGATION--------------------------->
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+    <a class="navbar-brand">
+        <img src="/images/logo.png" class="navbar-logo" alt="EleBite Logo">
+    </a>
+
+    <!-- Kollapset navigationsbar -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+
+        <!---- Venstre Navigationsbar ----->
+
+        <ul class="navbar-nav mr-auto">
+
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/dashboard}">Dashboard</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/projects}">Projects</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/teams_list}">Teams</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/resources}">Members</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/reports}">Reports</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/admin}">Administration</a>
+            </li>
+
+        </ul>
+
+        <!---- Højre Navigationsbar ----->
+
+        <ul class="navbar-nav ml-auto">
+
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/profile}">Profile</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/logout}">Logout</a>
+            </li>
+
+        </ul>
+
+    </div>
+
+</nav>
+
+<!-------------------------Project List bar--------------------------->
+
+<div class="container-fluid mt-4" style="width: 90%; margin-bottom: 5%;">
+    <div class="card">
+
+        <div class="card-header bg-white d-flex align-items-center justify-content-between">
+            <h2 class="mb-0">Task Edit</h2>
+            <div class="header-buttons d-flex">
+                <button type="submit" form="projectForm" class="btn btn-outline-primary btn-sm mr-2">Update</button>
+                <a th:href="@{/projects/{projectId}/tasks(projectId=${task.project.projectID})}" class="btn btn-outline-secondary btn-sm mr-2">Return</a>
+                <form id="deleteTaskForm" method="get" th:action="@{/tasks/{taskId}/delete(taskId=${task.taskID})}" class="d-flex">
+                    <input type="hidden" name="projectId" th:value="${task.project.projectID}" />
+                    <button type="submit" class="btn btn-outline-danger btn-sm mr-2">Delete</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card-body">
+
+            <form id="projectForm" method="post" th:action="@{/tasks/{taskId}/edit(taskId=${task.taskID})}" th:object="${task}">
+                <input type="hidden" th:field="*{taskID}">
+                <div class="row">
+
+                    <!-- Venstre kolonne for navn og beskrivelse -->
+                    <div class="col-md-6 border-right pr-4">
+                        <h3 class="mb-3">Basic Information</h3>
+
+                        <div class="form-group">
+                            <label><strong>Name</strong></label>
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    id="taskName"
+                                    th:field="*{taskName}"
+                                    placeholder="Task Name"
+                            />
+                            <p th:if="${#fields.hasErrors('taskName')}" class="text-danger" th:errors="*{taskName}"></p>
+                        </div>
+
+                        <div class="form-group">
+                            <label><strong>Description</strong></label>
+                            <textarea class="form-control" style="height: 300px; overflow-y: auto;" th:field="*{taskDescription}"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Højre kolonne for resterende information -->
+                    <div class="col-md-6 pl-4">
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <h3 class="mb-3">Task Timeline</h3>
+
+                                <div class="form-group">
+                                    <label><strong>Planned Start</strong></label>
+                                    <input
+                                            type="date"
+                                            class="form-control"
+                                            th:field="*{taskStartDate}"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label><strong>Planned End</strong></label>
+                                    <input
+                                            type="date"
+                                            class="form-control"
+                                            th:field="*{taskEndDate}"/>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <h3 class="mb-3">Other Information</h3>
+
+                                <div class="form-group">
+                                    <label><strong>Team</strong></label>
+                                    <input class="form-control" th:field="*{taskTeamID}"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label><strong>Estimated Hours</strong></label>
+                                    <input class="form-control" th:field="*{taskEstimatedHours}"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label><strong>Status</strong></label>
+                                    <input class="form-control" th:field="*{taskStatus}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>
+

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teams</title>
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <script defer src="/js/bootstrap.bundle.min.js"></script>
+
+  <link rel="icon" type="image/x-icon" th:href="@{/images/favicon.png}" href="../static/pictures/favicon.png">
+
+  <!-- Baggrundsfarve & Logo Størrelse -->
+  <style>
+    body { background-color: #f8f9fa;}
+    .navbar-logo { width: 120px; margin-left: -5px;}
+  </style>
+
+</head>
+<body>
+
+<!-------------------------NAVIGATION--------------------------->
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+  <a class="navbar-brand">
+    <img src="/images/logo.png" class="navbar-logo" alt="EleBite Logo">
+  </a>
+
+  <!-- Kollapset navigationsbar -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarNav">
+
+    <!---- Venstre Navigationsbar ----->
+
+    <ul class="navbar-nav mr-auto">
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/dashboard}">Dashboard</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/projects}">Projects</a>
+      </li>
+
+      <li class="nav-item active">
+        <a class="nav-link" th:href="@{/teams_list}">Teams</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/resources}">Members</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/reports}">Reports</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/admin}">Administration</a>
+      </li>
+
+
+    </ul>
+
+    <!---- Højre Navigationsbar ----->
+
+    <ul class="navbar-nav ml-auto">
+
+      <li class="nav-item">
+        <a th:if="${param.success}" class="alert alert-success">You are registered successfully - Please fill out your Profile!</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/profile}">Profile</a>
+      </li>
+
+      <!--
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/login}">Login</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/register}">Register</a>
+      </li>
+      -->
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/logout}">Logout</a>
+      </li>
+
+    </ul>
+
+  </div>
+
+</nav>
+
+<!-------------------------CONTENT--------------------------->
+
+<div class="container-fluid mt-4" style="width: 90%; margin-bottom: 5%;">
+  <div class="card">
+
+    <div class="card-header bg-white d-flex align-items-center justify-content-between">
+
+      <h2 class="mb-0">Teams</h2>
+
+      <div class="col-8 d-flex justify-content-center">
+
+      </div>
+
+      <div class="header-buttons d-flex">
+        <button type="submit" class="btn btn-outline-primary btn-sm mr-2">Update</button>
+        <a class="btn btn-outline-secondary btn-sm mr-2" th:href="@{/dashboard}" >Return</a>
+        <form id="deleteTaskForm" method="get" class="d-flex">
+          <input type="hidden" name="projectId"  />
+          <button type="submit" class="btn btn-outline-danger btn-sm mr-2">Delete</button>
+        </form>
+      </div>
+
+    </div>
+
+    <div class="card-body">
+
+      <div class="row">
+
+        <div class="col-md-6 border-right pr-4">
+          <h3 class="mb-3">Information</h3>
+
+          <div class="form-group">
+            <label><strong>Team Name</strong></label>
+            <input
+                    type="text"
+                    class="form-control"
+                    id="teamName"
+                    placeholder="Code Warriors"
+
+            />
+            <p class="text-danger" ></p>
+          </div>
+
+          <div class="form-group">
+            <label><strong>Description</strong></label>
+            <textarea class="form-control" style="height: 300px; overflow-y: auto;">"Code Warriors" is a dynamic and highly skilled Scrum team that thrives on the frontlines of software development. With a relentless passion for innovation and a deep understanding of coding principles, they fearlessly tackle complex challenges and forge cutting-edge solutions. Their expertise spans multiple programming languages and frameworks, enabling them to navigate the ever-evolving technological landscape with agility and finesse. As true warriors, they embrace collaboration, continuously pushing the boundaries of teamwork to deliver exceptional results. With their unwavering commitment to quality and a quest for excellence, the Code Warriors stand as a formidable force in the realm of IT development.</textarea>
+          </div>
+        </div>
+
+        <div class="col-md-6 pl-4">
+          <div class="row">
+
+            <div class="col-md-6">
+              <h3 class="mb-3">Team Members</h3>
+
+              <ul class="list-group">
+                <li class="list-group-item">Alex Thompson - Scrum Master</li>
+                <li class="list-group-item">Emma Roberts - Product Owner</li>
+                <li class="list-group-item">David Johnson - Developer</li>
+                <li class="list-group-item">Sarah Williams - UX/UI Designer</li>
+                <li class="list-group-item">Mark Davis - QA Engineer</li>
+                <li class="list-group-item">Laura Wilson - Business Analyst</li>
+                <li class="list-group-item">Michael Brown - DevOps Engineer</li>
+                <li class="list-group-item">Martin Grosen - IT Trainee</li>
+              </ul>
+            </div>
+
+            <div class="col-md-6">
+              <h3 class="mb-3">Team Skills</h3>
+
+              <ul class="list-group">
+                <li class="list-group-item">Full Stack Development</li>
+                <li class="list-group-item">Agile Methodologies</li>
+                <li class="list-group-item">Responsive Web Design</li>
+                <li class="list-group-item">Database Management</li>
+                <li class="list-group-item">Version Control (Git)</li>
+                <li class="list-group-item">RESTful API Integration</li>
+                <li class="list-group-item">Front-end Frameworks (React, Angular)</li>
+                <li class="list-group-item">Back-end Frameworks (Node.js, Django)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+
+</html>
+
+

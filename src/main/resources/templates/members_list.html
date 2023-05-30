@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resources</title>
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <script defer src="/js/bootstrap.bundle.min.js"></script>
+
+  <link rel="icon" type="image/x-icon" th:href="@{/images/favicon.png}" href="../static/pictures/favicon.png">
+
+  <!-- Baggrundsfarve & Logo Størrelse -->
+  <style>
+    body { background-color: #f8f9fa;}
+    .navbar-logo { width: 120px; margin-left: -5px;}
+  </style>
+
+</head>
+<body>
+<!-------------------------NAVIGATION--------------------------->
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+  <a class="navbar-brand">
+    <img src="/images/logo.png" class="navbar-logo" alt="EleBite Logo">
+  </a>
+
+  <!-- Kollapset navigationsbar -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarNav">
+
+    <!---- Venstre Navigationsbar ----->
+
+    <ul class="navbar-nav mr-auto">
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/dashboard}">Dashboard</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/projects}">Projects</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/teams_list}">Teams</a>
+      </li>
+
+      <li class="nav-item active">
+        <a class="nav-link" th:href="@{/resources}">Members</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/reports}">Reports</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/admin}">Administration</a>
+      </li>
+
+    </ul>
+
+    <!---- Højre Navigationsbar ----->
+
+    <ul class="navbar-nav ml-auto">
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/profile}">Profile</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/logout}">Logout</a>
+      </li>
+
+    </ul>
+
+  </div>
+
+</nav>
+
+<div class="container mt-4">
+  <h2>Members</h2>
+  <table class="table table-striped table-hover">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Affiliation Type</th>
+      <th>Proficiency</th>
+      <th>Competencies</th>
+      <th>Details</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Add resources here -->
+    <tr>
+      <td>John Smith</td>
+      <td>Software Engineer</td>
+      <td>High</td>
+      <td>Linux, Docker, KubernetesL</td>
+      <td><button class="btn btn-primary btn-sm mr-2">Details</button></td>
+    </tr>
+    <tr>
+      <td>Martin Grosen</td>
+      <td>IT trainee</td>
+      <td>Low</td>
+      <td>Java, Spring, SQL</td>
+      <td><a href="/profile" class="btn btn-primary btn-sm mr-2">Details</a></td>
+    </tr>
+    <tr>
+      <td>Michael Chen</td>
+      <td>Back-end Developer</td>
+      <td>High</td>
+      <td>Python, Django, PostgreSQL</td>
+      <td><button class="btn btn-primary btn-sm mr-2">Details</button></td>
+    </tr>
+    <tr>
+      <td>Emily Lee</td>
+      <td>UI/UX Designer</td>
+      <td>Medium</td>
+      <td>Adobe XD, Sketch, Wireframing</td>
+      <td><button class="btn btn-primary btn-sm mr-2">Details</button></td>
+    </tr>
+    <tr>
+      <td>David Rodriguez</td>
+      <td>Data Analyst</td>
+      <td>High</td>
+      <td>SQL, Excel, Data Visualization</td>
+      <td><button class="btn btn-primary btn-sm mr-2">Details</button></td>
+    </tr>
+    <tr>
+      <td>Lisa Anderson</td>
+      <td>DevOps Engineer</td>
+      <td>High</td>
+      <td>Linux, Docker, Kubernetes</td>
+      <td><button class="btn btn-primary btn-sm mr-2">Details</button></td>
+    </tr>
+    <tr>
+      <td>Mark Taylor</td>
+      <td>Full-stack Developer</td>
+      <td>High</td>
+      <td>JavaScript, Node.js, MongoDB</td>
+      <td><button class="btn btn-primary btn-sm mr-2">Details</button></td>
+    </tr>
+    <tr>
+      <td>Jennifer Brown</td>
+      <td>Data Scientist</td>
+      <td>High</td>
+      <td>Python, R, Machine Learning</td>
+      <td><button class="btn btn-primary btn-sm mr-2">Details</button></td>
+    </tr>
+    <tr>
+      <td>Robert Wilson</td>
+      <td>Network Administrator</td>
+      <td>High</td>
+      <td>Cisco, Routing, Security</td>
+      <td><button class="btn btn-primary btn-sm mr-2">Details</button></td>
+    </tr>
+    <tr>
+      <td>Amy Thompson</td>
+      <td>Quality Assurance Engineer</td>
+      <td>Medium</td>
+      <td>Selenium, TestNG, Bug Tracking</td>
+      <td><button class="btn btn-primary btn-sm mr-2">Details</button></td>
+    </tr>
+
+    <!-- Add more rows as needed -->
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>

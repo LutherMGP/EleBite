@@ -105,4 +105,17 @@ Persistere: "gemme eller opretholde data i en varig tilstand"
             this.projectDescription = null;
         }
     }
+
+
+    // Metode anvendt til testListAll()
+
+    @Override
+    public String toString() {
+        return "Project{" +
+                "projectID=" + projectID +
+                ", projectName='" + projectName + '\'' +
+               // ", projectDescription='" + projectDescription + '\'' +
+                '}';
+    }
+
 }

@@ -19,7 +19,7 @@ import java.util.Optional;
 public class ProjectRepositoryTests {
     @Autowired private ProjectRepository projectRepository;
 
-    // Create (C_rud)
+    // Create (C_rud) exxam
     @Test
     @Commit
     public void testAddNew() {
